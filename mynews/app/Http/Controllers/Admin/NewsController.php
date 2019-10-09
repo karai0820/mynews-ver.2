@@ -17,18 +17,27 @@ class NewsController extends Controller
     {
   		return view('admin.news.create');
     }
-    public function create(Request $request){
+    public function create(Request $request)
+    {
 
     	$this->validate($request, News::$rules);
     	$news = new News;
-    	$form = $request->all();
+        $form = $request->all();
+        
+        if (isset($form['image'])) {
+            $path = $request->file('image')->store('public/image');
+            $news->image_path = basename($path);
+          } else {
+              $news->image_path = null;}
 
-    	if(isset($form['image'])){
+        /*
+        if(isset($form['image'])){
     		$path = Storage::disk('s3')->putFile('/',$form['image'],'public');
     		$news->image_path = Storage::disk('s3')->url($path);
     	}else{
     		$news->image_path = null;
-    	}	
+        }
+        */	
 
     	unset($form['_token']);
     	unset($form['image']);
@@ -38,7 +47,6 @@ class NewsController extends Controller
 
     	return redirect('admin/news/create');
     }
-
     public function index(Request $request)
     {
         $cond_title = $request->cond_title;
@@ -51,8 +59,7 @@ class NewsController extends Controller
 
         }
         return view ('admin.news.index',['posts' => $posts,'cond_title' => $cond_title]);
-        }
-
+    }
     public function edit(Request $request)
     {
 
@@ -73,10 +80,10 @@ class NewsController extends Controller
         $news_form = $request->all();
         if($request->remove=='ture'){
             $news_form['image_path'] = null;
-        }elseif($request->file('image')){
+        }/*elseif($request->file('image')){
             $path = Storage::disk('s3')->putFile('/',$news_form['image'],'public');
             $news_form['image_path'] = Storage::disk('s3')->url($path);
-        }else{
+        }*/else{
             $news_form['image_path'] = $news->image_path;
         }
 

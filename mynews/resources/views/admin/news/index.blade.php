@@ -2,6 +2,7 @@
 @section('title','登録済みニュースの一覧')
 @section('content')
 <div class="container">
+	@inject("str","Illuminate\Support\Str")
 	<div class="row">
 		<h2>ニュース一覧</h2>
 	</div>
@@ -40,8 +41,8 @@
 						@foreach($posts as $news)
 						<tr>
 							<th>{{ $news->id}}</th>
-							<td>{{str_limit($news->title,100)}}</td>
-							<td>{{str_limit($news->body,250)}}</td>
+							<td>{{$str::limit($news->title,100)}}</td>
+							<td>{{$str::limit($news->body,250)}}</td>
 							<td>
 								<div>
 									<a href="{{action('Admin\NewsController@edit',['id' => $news->id])}}">編集</a>
