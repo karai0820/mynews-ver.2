@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <hr color="#c0c0c0">
-        <p>TEST</p>
+        <p>Latest Tip</p>
         @if (!is_null($headline))
             <div class="row">
             @inject('str','Illuminate\Support\Str')
@@ -47,7 +47,7 @@
                                 </div>
                             </div>
                             <div class="image col-md-6 text-right mt-4">
-                                @if ($post->image_path)
+                                @if($post->image_path)
                                     <img src="{{$post->image_path}}">
                                 @endif
                             </div>

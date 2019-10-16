@@ -29,7 +29,7 @@ class NewsController extends Controller
             $news->image_path = basename($path);
           } else {
               $news->image_path = null;}
-
+        
         /*
         if(isset($form['image'])){
     		$path = Storage::disk('s3')->putFile('/',$form['image'],'public');
@@ -37,7 +37,8 @@ class NewsController extends Controller
     	}else{
     		$news->image_path = null;
         }
-        */	
+        */
+        	
 
     	unset($form['_token']);
     	unset($form['image']);
